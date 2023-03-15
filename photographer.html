@@ -1,37 +1,98 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
   <head>
-    <link href="css/style.css" rel="stylesheet" type="text/css" />
     <meta charset="utf-8">
+    <link href="css/photographer.css" rel="stylesheet" type="text/css" />
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" 
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" 
+          integrity="sha512-					SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" 
+          crossorigin="anonymous" 
+          referrerpolicy="no-referrer" 
+        /> 
     <title>Fisheye - photographe </title>
   </head>
-  <body>
+  <body class="app app-photographer">
+
+    <div class="bas-de-page">
+      <div class="containeur-like-total">
+        <p class="likes-total"></p>
+        <i class="fa-solid fa-heart"></i>
+      </div>
+      <p class="price-bas-de-page"></p>
+    </div>
+
     <header>
-      <img src="assets/images/logo.png" class="logo" />
+      <a href="index.html" alt="Fisheye Home page">
+        <img src="assets/logo/logo.png" class="logo" />
+      </a>
     </header>
+
     <main id="main">
-      <div class="photograph-header">
-        <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+      <div class="photograph__header">
+        <div id="photograph-text" class="photograph-text"></div>
+        <button class="contact_button" id="btn-signup" aria-label="Contact Me" onclick="displayModal()">Contactez-moi</button>
+        <div id="photograph-image" class="photograph-image"></div>
       </div>
     </main>
-    <div id="contact_modal">
+
+    <div class="filtre">
+      <p class="filtre-title">Trier par</p>
+      <div class="filtre__menu">
+        <div class="filtre__menu-title">
+          <p class="title__menu">Popularité</p>
+          <i class="fa-solid fa-chevron-down" id="filter"></i>
+        </div>
+      </div>
+    </div>
+
+    <section class="media-section"></section>
+
+    <div id="contact__modal" aria-labelledby="Contact me">
 			<div class="modal">
-				<header>
-          <h2>Contactez-moi</h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()" />
+				<header class="modal-form">
+          <div class="text">
+            <h2 class="modal-title">Contactez-moi</h2>
+            <p id="name-photographe" class="modal-title"></p>
+          </div>
+          <img src="assets/icons/close.svg" onclick="closeModal()" aria-label="Close Contact form"/>
         </header>
-				<form>
-					<div>
-						<label>Prénom</label>
-						<input />
-					</div>
-          <button class="contact_button">Envoyer</button>
+				<form onsubmit="return validateForm()">
+          <div class="formData">
+            <label for="first">Prénom</label>
+            <input class="text-control" type="text" id="first" name="first" minlength="2" aria-label="First name"/>
+          </div>
+
+          <div class="formData">
+            <label for="last">Nom</label>
+            <input class="text-control" type="text" id="last" name="last" aria-label="Last name"/>
+          </div>
+
+          <div class="formData">
+            <label for="email">E-mail</label>
+            <input class="text-control" type="email" id="email" name="email" aria-label="E-mail"/>
+          </div>
+
+          <div class="formData">
+            <label for="message">Votre message</label>
+            <input class="text-control-message" type="text" id="message" name="message" aria-label="Your message"/>
+          </div>
+          <div class="formData " id="formDataCheckbox">
+            <input class="checkbox-input" type="checkbox" id="checkbox"/>
+            <label class="checkbox-label" for="checkbox" required>
+              <span class="checkbox-icon"></span>
+              J'ai lu et accepté les conditions d'utilisation.
+              <p id="errorMessageCheckbox"></p>
+            </label>
+          </div>
+
+          <button class="contact_button" id="contact_button" disabled="disabled" aria-label="Send">Envoyer</button>
 				</form>
 			</div>
 		</div>
-    <script src="/scripts/pages/photographer.js"></script>
-    <script src="/scripts/utils/contactForm.js"></script>
+
+    <script src="./scripts/pages/photographer.js"></script>
+    <script src="./scripts/utils/contactForm.js"></script>
   </body>
 </html>

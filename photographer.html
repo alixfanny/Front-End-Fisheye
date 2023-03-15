@@ -16,22 +16,49 @@
         <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
       </div>
     </main>
-    <div id="contact_modal">
+    <div id="contact_modal" aria-labelledby="Contact me">
 			<div class="modal">
-				<header>
-          <h2>Contactez-moi</h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()" />
+				<header class="modal-form">
+          <div class="text">
+            <h2 class="modal-title">Contactez-moi</h2>
+          </div>
+            <img src="assets/icons/close.svg" onclick="closeModal()" aria-label="Close Contact form" />
         </header>
-				<form>
-					<div>
-						<label>Prénom</label>
-						<input />
+				<form onsubmit="return validateForm()"></form>
+					<div class="formData">
+						<label for="first">Prénom</label>
+						<input class="text-control" type="text" id="first" name="first" minlength="2" aria-label="First name"/>
 					</div>
-          <button class="contact_button">Envoyer</button>
+
+          <div class="formData">
+            <label for="last">Nom</label>
+            <input class="text-control" type="text" id="last" name="last" aria-label="Last name"/>
+          </div>
+
+          <div class="formData">
+            <label for="email">E-mail</label>
+            <input class="text-control" type="email" id="email" name="email" aria-label="E-mail"/>
+          </div>
+
+          <div class="formData">
+            <label for="message">Votre message</label>
+            <input class="text-control-message" type="text" id="message" name="message" aria-label="Your message"/>
+          </div>
+
+          <div class="formData " id="formDataCheckbox">
+            <input class="checkbox-input" type="checkbox" id="checkbox"/>
+            <label class="checkbox-label" for="checkbox" required>
+              <span class="checkbox-icon"></span>
+                J'ai lu et accepté les conditions d'utilisation.
+              <p id="errorMessageCheckbox"></p>
+            </label>
+          </div>
+          <button class="contact_button" id="contact_button" disabled="disabled" aria-label="Send">Envoyer</button>
 				</form>
 			</div>
 		</div>
-    <script src="/scripts/pages/photographer.js"></script>
-    <script src="/scripts/utils/contactForm.js"></script>
+    <script src="./scripts/pages/photographer.js"></script>
+    <script src="./scripts/utils/contactForm.js"></script>
   </body>
 </html>
+

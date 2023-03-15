@@ -1,76 +1,267 @@
-#contact_modal {
-    display: none;
+.app {
+  font-family: "DM Sans", sans-serif;
+  margin: 0;
 }
 
-.photograph-header {
-    background-color: #FAFAFA;
-    height: 300px;
-    margin: 0 100px;
+.app-photographer {
+  margin-right: 100px;
+  margin-left: 100px;
+  margin-top: 50px;
+}
+
+.logo {
+  height: 50px;
+}
+
+.media-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 30px 53px;
+  margin-top: 25px;
+}
+
+.contentImg {
+  height: 200px;
+  width: 200px;
+  overflow: hidden;
+  border-radius: 50%;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+  background: #C4C4C4;
+}
+
+.img-photographer {
+  height: 200px;
+  width: 200px;
+  transform: scale(1.3);
+  cursor: pointer;
+}
+.img-photographer:hover {
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.53);
+}
+
+.name-photographer {
+  font-size: 64px;
+  color: #901c1c;
+}
+
+.taglineBis {
+  font-size: 18px;
+}
+
+.locationBis {
+  font-size: 24px;
+}
+
+.image {
+  width: 300px;
+  height: 250px;
+  border-radius: 5px;
+  transform: scale(1);
+}
+
+.video {
+  width: 360px;
+  height: 300px;
+  width: 300px;
+  height: 250px;
+  border-radius: 5px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.divlike {
+  display: flex;
+  align-items: baseline;
+}
+
+#contact__modal {
+  display: none;
+  background-color: rgba(128, 128, 128, 0.4);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+}
+
+.photograph__header {
+  background-color: #FAFAFA;
+  height: 300px;
+  padding: 0px 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .contact_button {
-    font-size: 20px;
-    font-weight: bold;
-    color: white;
-    padding: 11px;
-    width: 170px;
-    height: 70px;
-    border: none;
-    background-color: #901C1C;
-    border-radius: 5px;
-    cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  padding: 11px;
+  width: 170px;
+  height: 70px;
+  border: none;
+  background-color: #901C1C;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.divInfo {
+  display: flex;
+  align-items: baseline;
+  color: #901c1c;
+}
+.divInfo .titre-image {
+  flex: 2;
+}
+.divInfo .button-like {
+  display: flex;
+  align-items: baseline;
+  justify-content: end;
+  flex: 1;
+  border: none;
+  background-color: #fff;
+  font-family: "DM Sans", "Courier New", Courier, monospace;
+  color: #901c1c;
+  cursor: pointer;
+}
+
+.nombres-de-likes {
+  padding-right: 5px;
+}
+
+.bas-de-page {
+  background-color: #DB8876;
+  width: 376px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 5px;
+  height: 69px;
+  z-index: 1;
+  position: fixed;
+  bottom: 0px;
+  right: 18px;
+}
+.bas-de-page .containeur-like-total {
+  display: flex;
+  align-items: center;
+}
+.bas-de-page .containeur-like-total .likes-total {
+  margin: 0;
+  font-size: 24px;
+}
+.bas-de-page .containeur-like-total .fa-heart {
+  transform: scale(1.5);
+  margin-left: 10px;
+}
+.bas-de-page .price-bas-de-page {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.filtre {
+  display: flex;
+  align-items: baseline;
+}
+.filtre .filtre-title {
+  margin-right: 15px;
+}
+
+.filtre__menu {
+  display: flex;
+  align-items: baseline;
+  border-radius: 5px;
+}
+.filtre__menu .filtre__menu-title {
+  display: flex;
+  align-items: baseline;
+}
+.filtre__menu .title__menu {
+  margin-right: 5px;
+  color: #000000;
 }
 
 .modal {
-    border-radius: 5px;
-    background-color: #DB8876;
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding: 35px;
-    margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 5px;
+  background-color: #DB8876;
+  width: 50%;
+  flex-direction: column;
+  padding: 35px;
+  margin: auto;
+  max-width: 669px;
+  max-height: 900px;
+  position: relative;
+  margin-top: 6%;
 }
-
-.modal header {
-    justify-content: space-between;
-    width: 100%;
+.modal .modal-form {
+  justify-content: space-between;
+  width: 100%;
+  display: flex;
+  align-items: baseline;
 }
-
-.modal header img {
-    cursor: pointer;
+.modal .modal-form img {
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
 }
-
-.modal header h2 {
-    font-size: 64px;
-    font-weight: normal;
-    text-align: center;
+.modal .modal-form .modal-title {
+  font-size: 40px;
+  font-weight: normal;
+  color: #000;
+  margin-top: 0px;
 }
 
 form {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    align-items: flex-start;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
 }
-
 form label {
-    color: #312E2E;
-    font-size: 36px;
+  color: #312E2E;
+  font-size: 25px;
 }
-
 form div {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    align-items: self-start;
-    margin-bottom: 26px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: self-start;
+}
+form input {
+  width: 100%;
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  margin: 0px;
+}
+form #formDataCheckbox {
+  flex-direction: row;
+  margin-top: 15px;
+}
+form .text-control-message {
+  height: 80px;
+}
+form .checkbox-input {
+  padding: 8px;
+  margin-right: 9px;
+  border: 0.8px solid #ccc;
+  outline: none;
+  width: 4%;
+}
+form .checkbox-label {
+  font-size: 22px;
+}
+form .message {
+  margin: 0px;
 }
 
-form input {
-    width: 100%;
-    height: 68px;
-    border: none;
-    border-radius: 5px;
-}
+#errorMessageCheckbox {
+  font-size: 15px;
+}/*# sourceMappingURL=photographer.css.map */

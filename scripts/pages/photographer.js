@@ -132,6 +132,32 @@ async function initMedias(photographerId) {
     }
 }
 
+let currentImageIndex = null;
+
+// Affiche la lightbox.
+function showLightbox(){
+
+    const lightbox = document.getElementById("lightbox");
+    lightbox.style.display = "block";
+}
+
+// affiche les photos dans lightbox.
+async function addImageLightbox() {
+
+    const { media } = await getPhotographers();
+    const medias = findMedias(media, photographerId);
+    const dataImage = medias[currentImageIndex];
+    
+    const picturePath = `assets/images/${dataImage.image}`;
+    const img = document.createElement( 'img' );
+    const container = document.querySelector(".lightbox__container-image");
+    img.setAttribute("src", picturePath);
+    img.setAttribute("alt", dataImage.title);
+    img.classList.add('image-lightbox');
+    container.innerHTML =" ";
+    container.appendChild(img);
+}
+
 // Crée les elements de la page html avec leurs contenue pour leurs miniature de photo.
 function mediaFactory(data) {
     const { image, title, id, likes, date, video } = data;
@@ -206,4 +232,35 @@ function mediaFactory(data) {
    }
 
    return { img:title, video:title, div:id, div:photographerId, div:date, div:likes, titre:title, nbLike:likes, getUserCardDOMMedia }
+}
+
+// Ferme le lightbox
+function closeLightbox() {
+    const lightbox = document.getElementById("lightbox");
+    lightbox.style.display = "none";
+}
+
+// Permet d'afficher l'image suivante dans la lightbox
+async function next() {
+    currentImageIndex++;
+    const { media } = await getPhotographers();
+    const medias = findMedias(media, photographerId);
+
+    if(currentImageIndex == medias.length){
+        currentImageIndex = 0;
+    }
+    addImageLightbox();
+}
+
+// Permet d'afficher l'image precedante dans la lightbox
+async function prev() {
+    currentImageIndex--;
+
+    if(currentImageIndex < 0){
+        const { media } = await getPhotographers();
+        const medias = findMedias(media, photographerId);
+        currentImageIndex = medias.length-1;
+    }
+
+    addImageLightbox();
 }

@@ -47,6 +47,17 @@
       </div>
     </div>
 
+    <div class="lightbox" id="lightbox" aria-label="image closeup view">
+      <i class="fa-solid fa-xmark"  id="lightbox__close" onclick="closeLightbox()" alt="close dialog"></i>
+      <div class="lightbox__container">
+        <i class="fa-solid fa-chevron-left lightbox__prev" onclick="prev()" alt="Previous image"></i>
+        <div class="lightbox__container-image">
+          
+        </div>
+        <i class="fa-solid fa-chevron-right lightbox__next" onclick="next()" alt="next image"></i>
+      </div> 
+    </div>
+
     <section class="media-section"></section>
 
     <div id="contact__modal" aria-labelledby="Contact me">

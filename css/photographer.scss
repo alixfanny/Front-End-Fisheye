@@ -54,16 +54,19 @@ $tertiary-color: #757575;
 }
 
 .name-photographer{
-    font-size: 64px;
+    font-size: 50px;
     color: $primary-color;
+    margin: 0px;
 }
 
 .taglineBis{
     font-size: 18px;
+    margin: 0px;
 }
 
 .locationBis{
     font-size: 24px;
+    margin-bottom: 0px;
 }
 
 .image{
@@ -74,8 +77,6 @@ $tertiary-color: #757575;
 }
 
 .video {
-    width: 360px;
-    height: 300px;
     width: 300px;
     height: 250px;
     border-radius: 5px;
@@ -296,3 +297,54 @@ form {
 #errorMessageCheckbox{
     font-size: 15px;
 }   
+
+.lightbox{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    background-color: #fff;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+.lightbox__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 100vh;
+}
+
+#lightbox__close{
+    display: flex;
+    justify-content: end;
+    padding-right: 20px;
+    cursor: pointer;
+
+    &::before{
+        transform: scale(1.5);
+        padding-top: 10px;
+    }
+}
+
+.lightbox__next{
+    cursor: pointer;
+    padding-right: 20px;
+    transform: scale(1.5);
+}
+
+.lightbox__prev{
+    cursor: pointer;
+    padding-left: 20px;
+    transform: scale(1.5);
+}
+
+.image-lightbox{
+    width: 327px;
+    transform: scale(2);
+
+    &:hover{
+        box-shadow: none;
+    }
+}

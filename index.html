@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link href="css/style.css" rel="stylesheet" type="text/css" />
     <meta charset="utf-8">
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-	awesome/4.7.0/css/font-awesome.min.css">
     <title>Fisheye</title>
   </head>
-  <body>
-    <header>
-        <img src="assets/images/logo.png" class="logo" />
-        <h1>Nos photographes</h1>
+  <body class="app">
+    <header id="header">
+        <img src="assets/logo/logo.png" class="logo-accueil" alt="Fisheye Home page" aria-label="Logo du site Fisheye - photographe" />
+        <h1 class="title">Nos photographes</h1>
     </header>
     <main id="main">
         <div class="photographer_section"></div>
     </main>
-    <script src="scripts/factories/photographer.js"></script>
-    <script src="scripts/pages/index.js"></script>
+    <script src="./scripts/factories/photographer.js"></script>
+    <script src="./scripts/pages/index.js"></script>
   </body>
 </html>

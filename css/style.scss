@@ -1,0 +1,96 @@
+//variables
+$primary-color: #901c1c;
+$secondary-color: #D3573C;
+$tertiary-color: #757575;
+
+//mixin
+@mixin flex($justify-content, $align-items) {
+    display:flex;
+    justify-content: $justify-content;
+    align-items: $align-items;
+}
+
+@mixin text($color, $font-weight, $font-size){
+    margin: 0px;
+    color: $color;
+    font-weight: $font-weight;
+    font-size: $font-size;
+}
+
+//css
+
+.app {
+    font-family: "DM Sans", sans-serif;
+    margin: 0;
+}
+
+#header {
+    @include flex(space-between, center);
+    flex-direction: row;
+    height: 90px;
+}
+
+#main{
+    margin-top: 40px;
+}
+
+.title {
+    color: $primary-color;
+    margin-right: 100px;
+}
+
+.logo-accueil {
+    height: 50px;
+    margin-left: 100px;
+}
+
+.photographer_section {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 70px;
+    margin-top: 100px;
+}
+
+.portrait{
+    @include flex(center, center);
+    justify-self: center;
+    flex-direction: column;
+}
+
+.contentImg{
+    height: 200px;
+    width: 200px;
+    overflow: hidden;
+    border-radius: 50%;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+    background: #C4C4C4;
+}
+
+.img-photographer {
+    height: 200px;
+    width: 200px;
+    transform: scale(1.3);
+    cursor: pointer;
+    
+    &:hover {
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.53);
+    }
+}
+
+h2 {
+    @include text($secondary-color, 400, 36px);
+    margin-top: 20px;
+}
+
+.location{
+    @include text($primary-color, 500, 13px);
+    margin-bottom: 4px;
+}
+
+.tagline{
+    @include text(#000000, 400, 10px);
+}
+
+.price{
+    @include text($tertiary-color, 400, 9px)
+}

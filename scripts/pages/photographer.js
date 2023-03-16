@@ -264,3 +264,10 @@ async function prev() {
 
     addImageLightbox();
 }
+
+const date = document.querySelector(".date");
+date.addEventListener("click", async function(){
+    const { media } = await getPhotographers();
+    const medias = findMedias(media, photographerId);
+     return medias.date
+})

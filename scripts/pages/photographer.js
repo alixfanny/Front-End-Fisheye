@@ -108,8 +108,10 @@ function displayDataMedia(media) {
 }
 
 //Permet de trouver les id de chaque photographe
-function findMedias (media, id) {
-    const medias = media.filter(element => element.photographerId == id);
+function findMedias (media, id, sortBy = "likes") {
+    let medias = media.filter(element => element.photographerId == id);
+
+    medias = medias.sort((a, b) => (a[sortBy] > b[sortBy] ? -1 : 1));
     return medias;
 }
 
@@ -142,20 +144,35 @@ function showLightbox(){
 }
 
 // affiche les photos dans lightbox.
-async function addImageLightbox() {
+async function addMediaLightbox() {
 
     const { media } = await getPhotographers();
     const medias = findMedias(media, photographerId);
-    const dataImage = medias[currentImageIndex];
+    const data = medias[currentImageIndex];
+    const typeDeMediaImage = data.image;
+    const typeDeMediaVideo = data.video;
     
-    const picturePath = `assets/images/${dataImage.image}`;
-    const img = document.createElement( 'img' );
-    const container = document.querySelector(".lightbox__container-image");
-    img.setAttribute("src", picturePath);
-    img.setAttribute("alt", dataImage.title);
-    img.classList.add('image-lightbox');
-    container.innerHTML =" ";
-    container.appendChild(img);
+    if (typeDeMediaImage ){
+        const picturePath = `assets/images/${data.image}`;
+        const img = document.createElement( 'img' );
+        const container = document.querySelector(".lightbox__container-image");
+        img.setAttribute("src", picturePath);
+        img.setAttribute("alt", dataImage.title);
+        img.classList.add('image-lightbox');
+        container.innerHTML =" ";
+        container.appendChild(img);
+    }
+
+    if(typeDeMediaVideo){
+        const picturePath = `assets/videos/${data.video}`;
+        const video = document.createElement( 'video' );
+        const container = document.querySelector(".lightbox__container-image");
+        video.setAttribute("src", picturePath);
+        video.setAttribute("alt", data.title);
+        video.classList.add('image-lightbox');
+        container.innerHTML =" ";
+        container.appendChild(video);
+    }
 }
 
 // Crée les elements de la page html avec leurs contenue pour leurs miniature de photo.
@@ -183,7 +200,7 @@ function mediaFactory(data) {
             const medias = findMedias(media, photographerId);
             currentImageIndex = medias.findIndex(media => media.id === id);
             showLightbox();
-            addImageLightbox();
+            addMediaLightbox();
         })
         div.appendChild(img);
        }
@@ -193,6 +210,14 @@ function mediaFactory(data) {
         video.setAttribute("src", videoPath);
         video.setAttribute("alt", title);
         video.classList.add('video');
+        video.addEventListener("click", async function(){
+            const { media } = await getPhotographers();
+            const medias = findMedias(media, photographerId);
+            currentImageIndex = medias.findIndex(media => media.id === id);
+            showLightbox();
+            addMediaLightbox();
+        })
+        video.controls = true;
         div.appendChild(video);
        }
 
@@ -265,9 +290,76 @@ async function prev() {
     addImageLightbox();
 }
 
-const date = document.querySelector(".date");
-date.addEventListener("click", async function(){
-    const { media } = await getPhotographers();
-    const medias = findMedias(media, photographerId);
-     return medias.date
+const filter = document.getElementById("filter");
+const containerFilter = document.querySelector(".filtre__menu");
+const titleFiltre = document.querySelector(".other-title");
+const containerTitle = document.querySelector(".container-title");
+const titleMenu = document.querySelector(".title__menu");
+
+
+filter.addEventListener("click", function(){
+    filter.className = "fa-solid fa-chevron-up";
+    containerFilter.style.backgroundColor = "#901C1C";
+    containerFilter.style.height = "170px";
+    containerFilter.style.color = "#fff";
+    titleFiltre.style.cursor = "pointer";
+    filter.style.color = "#fff";
+    titleMenu.style.color = "#fff";
+
+    if(document.querySelector(".date")){
+        titleFiltre.remove();
+        containerFilter.style.backgroundColor = "#fff";
+        titleMenu.style.color = "#000";
+        filter.style.color = "#000";
+        filter.className = "fa-solid fa-chevron-down";
+        containerFilter.style.height = " 0px";
+    }
+    else {
+        const date = document.createElement( 'p' );
+        date.textContent = "Date";
+        date.className = "date";
+        date.addEventListener("click", async function(){
+
+            const { media } = await getPhotographers();
+            let medias = findMedias(media, photographerId, "date");
+
+            const container = document.querySelector(".media-section");
+            container.innerHTML = " ";
+            
+            for (let i=0; i < medias.length; i++){
+                displayDataMedia(medias[i]);
+
+            }
+        });
+        titleFiltre.appendChild(date);
+    }
+
+    if(document.querySelector(".titre")){
+        titleFiltre.remove();
+        containerFilter.style.backgroundColor = "#fff";
+        titleMenu.style.color = "#000";
+        filter.style.color = "#000";
+        filter.className = "fa-solid fa-chevron-down";
+        containerFilter.style.height = " 0px";
+
+    }
+    else{
+        const titre = document.createElement( 'p' );
+        titre.textContent = "Titre";
+        titre.className = "titre";
+        titre.addEventListener("click", async function(){
+
+            const { media } = await getPhotographers();
+            let medias = findMedias(media, photographerId,"title");
+        
+            const container = document.querySelector(".media-section");
+            container.innerHTML = " ";
+            
+            for (let i=0; i < medias.length; i++){
+                displayDataMedia(medias[i]);
+        
+            }
+        });
+        titleFiltre.appendChild(titre);
+    }
 })

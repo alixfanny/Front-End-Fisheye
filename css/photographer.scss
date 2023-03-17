@@ -116,7 +116,7 @@ $tertiary-color: #757575;
     color: white;
     padding: 11px;
     width: 170px;
-    height: 70px;
+    height: 45px;
     border: none;
     background-color: #901C1C;
     border-radius: 5px;
@@ -125,6 +125,10 @@ $tertiary-color: #757575;
     &:hover{
         box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
     }
+}
+
+#btn-signup{
+    height: 70px;
 }
 
 .divInfo{
@@ -205,20 +209,35 @@ $tertiary-color: #757575;
 
     .filtre__menu-title{
         display: flex;
+        flex-direction: column;
         align-items: baseline;
         padding-left: 6px;
-    }
 
-    .title__menu{
-        margin-right: 5px;
-        color: #000000;
+        .container-title{
+            display: flex;
+            align-items: baseline;
 
-        p{
+            .title__menu{
+                margin-right: 5px;
+                margin-bottom: 0px;
+                color: #000000;
+            }
+        }
+
+        .other-title{
             cursor: pointer;
-            border-bottom: solid 1px #fff;
+
+            p{
+                cursor: pointer;
+                border-bottom: #fff solid 1px;
+                width: 95px;
+            }
+
         }
     }
 }
+
+
 
 #filter{
     cursor: pointer;
@@ -229,20 +248,23 @@ $tertiary-color: #757575;
     @include flex(space-between, center);
     border-radius: 5px;
     background-color: #DB8876;
-    width: 50%;
     flex-direction: column;
     padding: 35px;
     margin: auto;
-    max-width: 669px;
-    max-height: 900px;
-    position: relative;
-    margin-top: 6%;
+    position: fixed;
+    margin-top: 1%;
+    margin-left: 26%;
 
     .modal-form {
         justify-content: space-between;
         width: 100%;
         display: flex;
         align-items: baseline;
+
+        .text{
+            display: flex;
+            flex-direction: column-reverse;
+        }
 
         img {
             cursor: pointer;
@@ -251,10 +273,10 @@ $tertiary-color: #757575;
         }
 
         .modal-title {
-            font-size: 40px;
+            font-size: 30px;
             font-weight: normal;
             color: #000;
-            margin-top: 0px;
+            margin: 0px;
         }
     }
 }
@@ -267,7 +289,7 @@ form {
 
     label {
         color: #312E2E;
-        font-size: 25px;
+        font-size: 20px;
     }
 
     div {
@@ -279,7 +301,7 @@ form {
 
     input {
         width: 100%;
-        height: 40px;
+        height: 30px;
         border: none;
         border-radius: 5px;
         margin-bottom: 15px;
@@ -292,7 +314,7 @@ form {
     }
 
     .text-control-message{
-        height: 80px;
+        height: 60px;
     }
 
     .checkbox-input {
@@ -304,7 +326,7 @@ form {
     }
 
     .checkbox-label {
-        font-size: 22px;
+        font-size: 20px;
     }
 
     .message{

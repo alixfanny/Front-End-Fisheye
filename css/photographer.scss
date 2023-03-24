@@ -5,22 +5,21 @@
     align-items: $align-items;
 }
 
+@mixin text($color, $font-size){
+    color: $color;
+    font-size: $font-size;
+}
+
 //variables
 $primary-color: #901c1c;
 $secondary-color: #D3573C;
-$tertiary-color: #757575;
 
 .app {
     font-family: "DM Sans", sans-serif;
-    margin: 0;
-}
-
-.app-photographer{
     margin-right: 100px;
     margin-left: 100px;
     margin-top: 50px;
 }
-
 
 .logo {
     height: 50px;
@@ -32,6 +31,49 @@ $tertiary-color: #757575;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 30px 53px;;
     margin-top: 25px;
+
+    .image{
+        width: 300px;
+        height: 250px;
+        border-radius: 5px;
+        transform: scale(1);
+    }
+    
+    .video {
+        width: 300px;
+        height: 250px;
+        border-radius: 5px;
+        object-fit: cover;
+    }
+
+    .divInfo{
+        display: flex;
+        align-items: baseline;
+        color: $primary-color;
+    
+        .titre-image{
+            flex: 2;
+        }
+    
+        .button-like{
+            @include flex(end, baseline);
+            flex: 1;
+            border: none;
+            background-color: #fff;
+            font-family: "DM Sans","Courier New",Courier,monospace;
+            color: $primary-color;
+            cursor: pointer;
+        }
+
+        .divlike{
+            display: flex;
+            align-items: baseline;
+
+            .nombres-de-likes{
+                padding-right: 5px;
+            }
+        }
+    }
 }
 
 .contentImg{
@@ -55,8 +97,7 @@ $tertiary-color: #757575;
 }
 
 .name-photographer{
-    font-size: 50px;
-    color: $secondary-color;
+    @include text($secondary-color, 50px);
     margin: 0px;
 }
 
@@ -66,30 +107,11 @@ $tertiary-color: #757575;
 }
 
 .locationBis{
-    font-size: 24px;
+    @include text($primary-color, 24px);
     margin-bottom: 0px;
-    color: $primary-color;
 }
 
-.image{
-    width: 300px;
-    height: 250px;
-    border-radius: 5px;
-    transform: scale(1);
-}
-
-.video {
-    width: 300px;
-    height: 250px;
-    border-radius: 5px;
-    object-fit: cover;
-}
-
-.divlike{
-    display: flex;
-    align-items: baseline;
-}
-
+// css pour le formulaire
 #contact__modal {
     display: none;
     background-color: rgba(128, 128, 128, 0.4);
@@ -99,21 +121,108 @@ $tertiary-color: #757575;
     z-index: 1;
     left: 0;
     top: 0;
+
+    .modal {
+        @include flex(space-between, center);
+        border-radius: 5px;
+        background-color: #DB8876;
+        flex-direction: column;
+        padding: 35px;
+        margin: auto;
+        position: fixed;
+        margin-top: 1%;
+        margin-left: 30%;
+    
+        .modal-form {
+            @include flex(space-between, baseline);
+            width: 100%;
+    
+            .text{
+                display: flex;
+                flex-direction: column-reverse;
+            }
+    
+            img {
+                cursor: pointer;
+                width: 30px;
+                height: 30px;
+            }
+    
+            .modal-title {
+                @include text(#000, 30px);
+                font-weight: normal;
+                margin: 0px;
+            }
+        }
+    }
 }
+
+form {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+
+    label {
+        @include text(#312E2E, 20px);
+    }
+
+    div {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: self-start;
+    }
+
+    input {
+        width: 100%;
+        height: 30px;
+        border: none;
+        border-radius: 5px;
+        margin-bottom: 15px;
+        margin: 0px;
+    }
+
+    #formDataCheckbox{
+        flex-direction: row;
+        margin-top: 15px;
+
+        .checkbox-input {
+            padding: 8px;
+            margin-right: 9px;
+            border: 0.8px solid #ccc;
+            outline: none;
+            width: 4%;
+        }
+
+        .checkbox-label {
+            font-size: 20px;
+        }
+
+        #errorMessageCheckbox{
+            font-size: 15px;
+        }  
+    }
+
+    .message{
+        margin: 0px;
+
+        .text-control-message{
+            height: 60px;
+        }
+    }
+}  
 
 .photograph__header {
     background-color: #FAFAFA;
     height: 300px;
     padding: 0px 50px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    @include flex(space-between, center);
 }
 
 .contact_button {
-    font-size: 20px;
+    @include text(white, 20px);
     font-weight: bold;
-    color: white;
     padding: 11px;
     width: 170px;
     height: 45px;
@@ -131,38 +240,11 @@ $tertiary-color: #757575;
     height: 70px;
 }
 
-.divInfo{
-    display: flex;
-    align-items: baseline;
-    color: $primary-color;
-
-    .titre-image{
-        flex: 2;
-    }
-
-    .button-like{
-        display: flex;
-        align-items: baseline;
-        justify-content: end;
-        flex: 1;
-        border: none;
-        background-color: #fff;
-        font-family: "DM Sans","Courier New",Courier,monospace;
-        color: $primary-color;
-        cursor: pointer;
-    }
-}
-
-.nombres-de-likes{
-    padding-right: 5px;
-}
-
+// css pour affiche bas de page
 .bas-de-page{
+    @include flex(space-around, center);
     background-color: #DB8876;
     width: 376px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
     border-radius: 5px;
     height: 69px;
     z-index: 1;
@@ -192,152 +274,60 @@ $tertiary-color: #757575;
     }
 }
 
+// css pour le menu de filtre
 .filtre{
     display: flex;
     align-items: baseline;
 
     .filtre-title{
-        margin-right: 15px;
+        margin-right: 10px;
+
     }
 }
 
-.filtre__menu{
-    display: flex;
-    align-items: baseline;
-    border-radius: 5px;
-    width: 115px;
+.menu{
+    position: relative;
+    width: 120px;
+    z-index: 500;
 
-    .filtre__menu-title{
-        display: flex;
-        flex-direction: column;
-        align-items: baseline;
-        padding-left: 6px;
-
-        .container-title{
-            display: flex;
-            align-items: baseline;
-
-            .title__menu{
-                margin-right: 5px;
-                margin-bottom: 0px;
-                color: #000000;
-            }
-        }
-
-        .other-title{
-            cursor: pointer;
-
-            p{
-                cursor: pointer;
-                border-bottom: #fff solid 1px;
-                width: 95px;
-            }
-
-        }
-    }
-}
-
-
-
-#filter{
-    cursor: pointer;
-    padding-left: 5px;
-}
-
-.modal {
-    @include flex(space-between, center);
-    border-radius: 5px;
-    background-color: #DB8876;
-    flex-direction: column;
-    padding: 35px;
-    margin: auto;
-    position: fixed;
-    margin-top: 1%;
-    margin-left: 26%;
-
-    .modal-form {
-        justify-content: space-between;
-        width: 100%;
-        display: flex;
-        align-items: baseline;
-
-        .text{
-            display: flex;
-            flex-direction: column-reverse;
-        }
-
-        img {
-            cursor: pointer;
-            width: 30px;
-            height: 30px;
-        }
-
-        .modal-title {
-            font-size: 30px;
-            font-weight: normal;
-            color: #000;
-            margin: 0px;
-        }
-    }
-}
-
-form {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    align-items: flex-start;
-
-    label {
-        color: #312E2E;
-        font-size: 20px;
-    }
-
-    div {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        align-items: self-start;
-    }
-
-    input {
-        width: 100%;
+    .menu__arrow{
+        position: absolute;
         height: 30px;
-        border: none;
-        border-radius: 5px;
-        margin-bottom: 15px;
+        right: 10px;
+        top: 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .menu__list{
+        position: relative;
+        height: 30px;
+        overflow: hidden;
+        list-style-type: none;
+        padding: 0px;
         margin: 0px;
-    }
 
-    #formDataCheckbox{
-        flex-direction: row;
-        margin-top: 15px;
-    }
+        .menu__list-item{
+            height: 30px;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            position: relative;
 
-    .text-control-message{
-        height: 60px;
-    }
+            &:first-child {
+                border-top-right-radius: 5px;
+                border-top-left-radius: 5px;
+            }
 
-    .checkbox-input {
-        padding: 8px;
-        margin-right: 9px;
-        border: 0.8px solid #ccc;
-        outline: none;
-        width: 4%;
-    }
-
-    .checkbox-label {
-        font-size: 20px;
-    }
-
-    .message{
-        margin: 0px;
+            &:last-child{
+                border-bottom-right-radius: 5px;
+                border-bottom-left-radius: 5px;
+            }
+        }
     }
 }
 
-#errorMessageCheckbox{
-    font-size: 15px;
-}   
-
+// css pour la lightbox
 .lightbox{
     display: none;
     position: fixed;
@@ -347,37 +337,36 @@ form {
     left: 0px;
     width: 100%;
     height: 100%;
-}
 
-.lightbox__container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    min-height: 100vh;
-}
-
-#lightbox__close{
-    display: flex;
-    justify-content: end;
-    padding-right: 20px;
-    cursor: pointer;
-
-    &::before{
-        transform: scale(1.5);
-        padding-top: 10px;
+    #lightbox__close{
+        display: flex;
+        justify-content: end;
+        padding-right: 20px;
+        cursor: pointer;
+    
+        &::before{
+            transform: scale(1.5);
+            padding-top: 10px;
+        }
     }
-}
 
-.lightbox__next{
-    cursor: pointer;
-    padding-right: 20px;
-    transform: scale(1.5);
-}
+    .lightbox__container {
+        @include flex(space-between, center);
+        min-height: 100vh;
 
-.lightbox__prev{
-    cursor: pointer;
-    padding-left: 20px;
-    transform: scale(1.5);
+        .lightbox__prev{
+            cursor: pointer;
+            padding-left: 20px;
+            transform: scale(1.5);
+        }
+
+        .lightbox__next{
+            cursor: pointer;
+            padding-right: 20px;
+            transform: scale(1.5);
+        }
+        
+    }
 }
 
 .image-lightbox{

@@ -154,10 +154,12 @@ async function addMediaLightbox() {
     
     if (typeDeMediaImage ){
         const picturePath = `assets/images/${data.image}`;
+
         const img = document.createElement( 'img' );
         const container = document.querySelector(".lightbox__container-image");
         img.setAttribute("src", picturePath);
-        img.setAttribute("alt", dataImage.title);
+        img.setAttribute("alt", data.title);
+        console.log(typeDeMediaImage);
         img.classList.add('image-lightbox');
         container.innerHTML =" ";
         container.appendChild(img);
@@ -170,6 +172,7 @@ async function addMediaLightbox() {
         video.setAttribute("src", picturePath);
         video.setAttribute("alt", data.title);
         video.classList.add('image-lightbox');
+        video.controls = true;
         container.innerHTML =" ";
         container.appendChild(video);
     }
@@ -274,7 +277,7 @@ async function next() {
     if(currentImageIndex == medias.length){
         currentImageIndex = 0;
     }
-    addImageLightbox();
+    addMediaLightbox();
 }
 
 // Permet d'afficher l'image precedante dans la lightbox
@@ -287,79 +290,51 @@ async function prev() {
         currentImageIndex = medias.length-1;
     }
 
-    addImageLightbox();
+    addMediaLightbox();
 }
 
-const filter = document.getElementById("filter");
-const containerFilter = document.querySelector(".filtre__menu");
-const titleFiltre = document.querySelector(".other-title");
-const containerTitle = document.querySelector(".container-title");
-const titleMenu = document.querySelector(".title__menu");
+// permet de tier par "choix"
+const listItems = document.querySelectorAll(".menu__list-item");
+const menuList = document.querySelector(".menu__list");
+const arrow = document.querySelector(".menu__arrow i");
 
 
-filter.addEventListener("click", function(){
-    filter.className = "fa-solid fa-chevron-up";
-    containerFilter.style.backgroundColor = "#901C1C";
-    containerFilter.style.height = "170px";
-    containerFilter.style.color = "#fff";
-    titleFiltre.style.cursor = "pointer";
-    filter.style.color = "#fff";
-    titleMenu.style.color = "#fff";
+listItems.forEach(function(listItem){
+    listItem.addEventListener("click", async function(event){
+        event.stopPropagation();
 
-    if(document.querySelector(".date")){
-        titleFiltre.remove();
-        containerFilter.style.backgroundColor = "#fff";
-        titleMenu.style.color = "#000";
-        filter.style.color = "#000";
-        filter.className = "fa-solid fa-chevron-down";
-        containerFilter.style.height = " 0px";
-    }
-    else {
-        const date = document.createElement( 'p' );
-        date.textContent = "Date";
-        date.className = "date";
-        date.addEventListener("click", async function(){
+        const index = event.target.dataset.index;
+        const currentOverflow = menuList.style.overflow;
 
-            const { media } = await getPhotographers();
-            let medias = findMedias(media, photographerId, "date");
+        if(currentOverflow !== "visible") {
+            menuList.style.overflow = "visible";
+            arrow.style.color = "#fff";
+            arrow.className = "fa-solid fa-chevron-up";
+            listItems.forEach(function(listItem){
+                listItem.style.backgroundColor = "#901c1c";
+                listItem.style.top ="0px";
+                listItem.style.color = "#fff";
+            })
+        }
+        else{
+            menuList.style.overflow ="hidden";
+            arrow.style.color = "#000";
+            arrow.className = "fa-solid fa-chevron-down";
+            listItems.forEach(function(listItem){
+                listItem.style.backgroundColor = "transparent";
+                listItem.style.top = "-"+index*30+"px";
+                listItem.style.color = "#000";
+            })
+        }
 
-            const container = document.querySelector(".media-section");
-            container.innerHTML = " ";
-            
-            for (let i=0; i < medias.length; i++){
-                displayDataMedia(medias[i]);
-
-            }
-        });
-        titleFiltre.appendChild(date);
-    }
-
-    if(document.querySelector(".titre")){
-        titleFiltre.remove();
-        containerFilter.style.backgroundColor = "#fff";
-        titleMenu.style.color = "#000";
-        filter.style.color = "#000";
-        filter.className = "fa-solid fa-chevron-down";
-        containerFilter.style.height = " 0px";
-
-    }
-    else{
-        const titre = document.createElement( 'p' );
-        titre.textContent = "Titre";
-        titre.className = "titre";
-        titre.addEventListener("click", async function(){
-
-            const { media } = await getPhotographers();
-            let medias = findMedias(media, photographerId,"title");
-        
-            const container = document.querySelector(".media-section");
-            container.innerHTML = " ";
-            
-            for (let i=0; i < medias.length; i++){
-                displayDataMedia(medias[i]);
-        
-            }
-        });
-        titleFiltre.appendChild(titre);
-    }
-})
+        const sortBy = event.target.dataset.value;
+        const { media } = await getPhotographers();
+        const medias = findMedias(media, photographerId, sortBy);
+        const photographersMedia = document.querySelector(".media-section");
+        photographersMedia.innerHTML = " ";
+        for (let i=0; i < medias.length; i++){
+            displayDataMedia(medias[i]);
+    
+        }
+    })
+});  

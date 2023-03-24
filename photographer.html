@@ -13,9 +13,9 @@
         /> 
     <title>Fisheye - photographe </title>
   </head>
-  <body class="app app-photographer">
+  <body class="app">
 
-    <div class="bas-de-page">
+    <div class="bas-de-page" tabindex="0">
       <div class="containeur-like-total">
         <p class="likes-total"></p>
         <i class="fa-solid fa-heart"></i>
@@ -23,13 +23,13 @@
       <p class="price-bas-de-page"></p>
     </div>
 
-    <header>
+    <header tabindex="0">
       <a href="index.html" alt="Fisheye Home page">
         <img src="assets/logo/logo.png" class="logo" />
       </a>
     </header>
 
-    <main id="main">
+    <main id="main" tabindex="0">
       <div class="photograph__header">
         <div id="photograph-text" class="photograph-text"></div>
         <button class="contact_button" id="btn-signup" aria-label="Contact Me" onclick="displayModal()">Contactez-moi</button>
@@ -37,33 +37,32 @@
       </div>
     </main>
 
-    <div class="filtre">
+    <div class="filtre" tabindex="0">
       <p class="filtre-title">Trier par</p>
-      <div class="filtre__menu">
-        <div class="filtre__menu-title">
-          <div class="container-title">
-            <p class="title__menu">Popularité</p>
-            <i class="fa-solid fa-chevron-down" id="filter"></i>
-          </div>
-          <div class="other-title"></div>
+      <div class="menu">
+        <ul class="menu__list">
+          <li class="menu__list-item" data-value="likes" data-index="0">Popularité</li>
+          <li class="menu__list-item" data-value="date" data-index="1">Date</li>
+          <li class="menu__list-item" data-value="title" data-index="2">Titre</li>
+        </ul>
+        <div class="menu__arrow">
+          <i class="fa-solid fa-chevron-down"></i>
         </div>
       </div>
     </div>
 
-    <div class="lightbox" id="lightbox" aria-label="image closeup view">
+    <div class="lightbox" id="lightbox" aria-label="image closeup view" tabindex="0">
       <i class="fa-solid fa-xmark"  id="lightbox__close" onclick="closeLightbox()" alt="close dialog"></i>
       <div class="lightbox__container">
         <i class="fa-solid fa-chevron-left lightbox__prev" onclick="prev()" alt="Previous image"></i>
-        <div class="lightbox__container-image">
-          
-        </div>
+        <div class="lightbox__container-image"></div>
         <i class="fa-solid fa-chevron-right lightbox__next" onclick="next()" alt="next image"></i>
       </div> 
     </div>
 
-    <section class="media-section"></section>
+    <section class="media-section" tabindex="0"></section>
 
-    <div id="contact__modal" aria-labelledby="Contact me">
+    <div id="contact__modal" aria-labelledby="Contact me" tabindex="0">
 			<div class="modal">
 				<header class="modal-form">
           <div class="text">

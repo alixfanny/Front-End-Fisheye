@@ -1,10 +1,11 @@
 //Récupere les données dans le fichiers Json.
 async function getPhotographers() {
-    let response = await fetch('./data/photographers.json')
-    let photographers = await response.json();
-
+    const response = await fetch('./data/photographers.json')
+    const photographers = await response.json();
+    
     return photographers;
 }
+
 
 // Crée les liens dans le html pour la partie presentation d'une page d'un photographe.
 function displayDataPhotographer(photographer) {
@@ -115,24 +116,32 @@ function findMedias (media, id, sortBy = "likes") {
     return medias;
 }
 
+
+function showTotalLikes() {
+    const likesElements = document.querySelectorAll('.nombres-de-likes');
+    const afficheTotalLike = document.querySelector(".likes-total");
+
+    let totalLikes = 0;
+
+    for (let i=0; i < likesElements.length; i++){
+        totalLikes += parseInt(likesElements[i].textContent);
+    }
+
+    afficheTotalLike.textContent = totalLikes;
+}
+
 //Récupére les medias des photographes
 async function initMedias(photographerId) {
     const { media } = await getPhotographers();
     const medias = findMedias(media, photographerId)
 
-    let totalLikes = 0;
-    for (let i=0; i < medias.length; i++){
-        totalLikes += medias[i].likes;
-
-        const afficheTotalLike = document.querySelector(".likes-total");
-        afficheTotalLike.textContent = totalLikes;
-    }
-
     for (let i=0; i < medias.length; i++){
         displayDataMedia(medias[i]);
-
     }
+
+    showTotalLikes();
 }
+
 
 let currentImageIndex = null;
 
@@ -143,6 +152,25 @@ function showLightbox(){
     lightbox.style.display = "block";
 }
 
+//cree les element media
+function createElement(directory, fileName, elementType, alt, attributes = {}, events = {}) {
+    const path = `assets/${directory}/${fileName}`;
+
+    const element = document.createElement(elementType);
+    element.setAttribute("src", path);
+    element.setAttribute("alt", alt);
+
+    for(const [key, value] of Object.entries(attributes)) {
+        element[key] = value;
+    }
+
+    for (const [key, value] of Object.entries(events)) {
+        element.addEventListener(key, value);
+    }
+
+    return element;
+}
+
 // affiche les photos dans lightbox.
 async function addMediaLightbox() {
 
@@ -151,38 +179,25 @@ async function addMediaLightbox() {
     const data = medias[currentImageIndex];
     const typeDeMediaImage = data.image;
     const typeDeMediaVideo = data.video;
+    const container = document.querySelector(".lightbox__container-image");
     
     if (typeDeMediaImage ){
-        const picturePath = `assets/images/${data.image}`;
-
-        const img = document.createElement( 'img' );
-        const container = document.querySelector(".lightbox__container-image");
-        img.setAttribute("src", picturePath);
-        img.setAttribute("alt", data.title);
-        console.log(typeDeMediaImage);
-        img.classList.add('image-lightbox');
-        container.innerHTML =" ";
-        container.appendChild(img);
+      const element = createElement('images', data.image, 'img', data.title, { classList: "image-lightbox"});
+      container.innerHTML = " ";
+      container.appendChild(element);
     }
 
     if(typeDeMediaVideo){
-        const picturePath = `assets/videos/${data.video}`;
-        const video = document.createElement( 'video' );
-        const container = document.querySelector(".lightbox__container-image");
-        video.setAttribute("src", picturePath);
-        video.setAttribute("alt", data.title);
-        video.classList.add('image-lightbox');
-        video.controls = true;
-        container.innerHTML =" ";
-        container.appendChild(video);
+        const element = createElement('videos', data.video, 'video', data.title, { controls: true,  classList: "image-lightbox" });
+        container.innerHTML = " ";
+        container.appendChild(element);
     }
 }
 
 // Crée les elements de la page html avec leurs contenue pour leurs miniature de photo.
+
 function mediaFactory(data) {
     const { image, title, id, likes, date, video } = data;
-    const picturePath = `assets/images/${image}`;
-    const videoPath = `assets/videos/${video}`;
     const typeDeMediaImage = data.image;
     const typeDeMediaVideo = data.video;
     const icons =`assets/icons/heart-solid.svg`;
@@ -192,36 +207,36 @@ function mediaFactory(data) {
 
         const div = document.createElement( 'div' );
         div.classList.add( 'media' );
-
-       if (typeDeMediaImage){
-        const img = document.createElement( 'img' );
-        img.setAttribute("src", picturePath);
-        img.setAttribute("alt", title);
-        img.classList.add('image');
-        img.addEventListener("click", async function(){
+        const onclick = async function(){
             const { media } = await getPhotographers();
             const medias = findMedias(media, photographerId);
             currentImageIndex = medias.findIndex(media => media.id === id);
             showLightbox();
-            addMediaLightbox();
-        })
-        div.appendChild(img);
+            addMediaLightbox()
+        }
+
+       if (typeDeMediaImage){
+        const element = createElement(
+            'images', 
+            data.image, 
+            'img', 
+            title, 
+            { classList: "image"}, 
+            { click: onclick },
+        );
+        div.appendChild(element);
        }
 
        if(typeDeMediaVideo){
-        const video = document.createElement( 'video' );
-        video.setAttribute("src", videoPath);
-        video.setAttribute("alt", title);
-        video.classList.add('video');
-        video.addEventListener("click", async function(){
-            const { media } = await getPhotographers();
-            const medias = findMedias(media, photographerId);
-            currentImageIndex = medias.findIndex(media => media.id === id);
-            showLightbox();
-            addMediaLightbox();
-        })
-        video.controls = true;
-        div.appendChild(video);
+         const element = createElement(
+            'videos',
+            data.video,
+            'video',
+            title,
+            {classList: "video"},
+            { click: onclick },
+         );
+        div.appendChild(element);
        }
 
        const divInfo = document.createElement ('div');
@@ -245,6 +260,7 @@ function mediaFactory(data) {
           let newLike = likes
            newLike++;
            nbLike.textContent = newLike;
+           showTotalLikes();
        })
 
        const icone = document.createElement( 'i' );

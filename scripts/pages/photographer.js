@@ -6,7 +6,6 @@ async function getPhotographers() {
     return photographers;
 }
 
-
 // Crée les liens dans le html pour la partie presentation d'une page d'un photographe.
 function displayDataPhotographer(photographer) {
     
@@ -58,20 +57,24 @@ function photographerFactory(data) {
 
         const div1 = document.createElement('div');
         div1.classList.add('contentText');
+        div1.setAttribute("tabindex", "0");
 
         const h2 = document.createElement( 'h2' );
         h2.textContent = name;
         h2.classList.add('name-photographer');
+        h2.setAttribute("tabindex", "0");
 
         const pLocalisation = document.createElement( 'p' );
         pLocalisation.textContent = city + ", " + country;
         pLocalisation.classList.add('location');
         pLocalisation.classList.add('locationBis');
+        pLocalisation.setAttribute("tabindex", "0");
 
         const pTagline = document.createElement( 'p' );
         pTagline.textContent = tagline;
         pTagline.classList.add('tagline');
         pTagline.classList.add('taglineBis');
+        pTagline.setAttribute("tabindex", "0");
 
         div1.appendChild(h2);
         div1.appendChild(pLocalisation);
@@ -83,11 +86,13 @@ function photographerFactory(data) {
 
         const div2 = document.createElement('div');
         div2.classList.add('contentImg');
+        div2.setAttribute("tabindex", "0");
 
         const img = document.createElement( 'img' );
         img.setAttribute("src", picture);
         img.setAttribute("alt", name);
         img.setAttribute("id", id);
+        img.setAttribute("tabindex", "0");
         img.classList.add("img-photographer");
 
         div2.appendChild(img);
@@ -159,6 +164,7 @@ function createElement(directory, fileName, elementType, alt, attributes = {}, e
     const element = document.createElement(elementType);
     element.setAttribute("src", path);
     element.setAttribute("alt", alt);
+    element.setAttribute("tabindex", "0");
 
     for(const [key, value] of Object.entries(attributes)) {
         element[key] = value;
@@ -207,6 +213,7 @@ function mediaFactory(data) {
 
         const div = document.createElement( 'div' );
         div.classList.add( 'media' );
+        div.setAttribute("tabindex", "0");
         const onclick = async function(){
             const { media } = await getPhotographers();
             const medias = findMedias(media, photographerId);
@@ -241,25 +248,30 @@ function mediaFactory(data) {
 
        const divInfo = document.createElement ('div');
        divInfo.classList.add('divInfo');
+       divInfo.setAttribute("tabindex", "0");
 
 
        const titre = document.createElement('p');
        titre.classList.add("titre-image");
        titre.setAttribute("title", title);
        titre.textContent = title;
+       titre.setAttribute("tabindex", "0");
 
        const divLike = document.createElement ('div');
        divLike.classList.add('divlike');
+       divLike.setAttribute("tabindex", "0");
 
        const nbLike = document.createElement('p');
        nbLike.classList.add('nombres-de-likes');
        nbLike.setAttribute("nbLike", likes);
        nbLike.textContent = likes;
+       nbLike.setAttribute("tabindex", "0");
 
        divLike.addEventListener("click", function(){
           let newLike = likes
            newLike++;
            nbLike.textContent = newLike;
+           icone.style.fontSize = "20px";
            showTotalLikes();
        })
 

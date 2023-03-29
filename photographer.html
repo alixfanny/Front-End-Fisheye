@@ -17,46 +17,46 @@
 
     <div class="bas-de-page" tabindex="0">
       <div class="containeur-like-total">
-        <p class="likes-total"></p>
-        <i class="fa-solid fa-heart"></i>
+        <p class="likes-total" tabindex="0"></p>
+        <strong class="fa-solid fa-heart"></strong>
       </div>
-      <p class="price-bas-de-page"></p>
+      <p class="price-bas-de-page" tabindex="0"></p>
     </div>
 
     <header tabindex="0">
-      <a href="index.html" alt="Fisheye Home page">
-        <img src="assets/logo/logo.png" class="logo" />
+      <a href="index.html">
+        <img src="assets/logo/logo.png" class="logo" alt="Fisheye Home page"/>
       </a>
     </header>
 
     <main id="main" tabindex="0">
       <div class="photograph__header">
         <div id="photograph-text" class="photograph-text"></div>
-        <button class="contact_button" id="btn-signup" aria-label="Contact Me" onclick="displayModal()">Contactez-moi</button>
+        <button class="contact_button" id="btn-signup" aria-label="Contact Me" tabindex="0" onclick="displayModal()">Contactez-moi</button>
         <div id="photograph-image" class="photograph-image"></div>
       </div>
     </main>
 
     <div class="filtre" tabindex="0">
-      <p class="filtre-title">Trier par</p>
+      <p class="filtre-title" tabindex="0">Trier par</p>
       <div class="menu">
-        <ul class="menu__list">
-          <li class="menu__list-item" data-value="likes" data-index="0">Popularité</li>
-          <li class="menu__list-item" data-value="date" data-index="1">Date</li>
-          <li class="menu__list-item" data-value="title" data-index="2">Titre</li>
+        <ul class="menu__list" role="listbox" aria-haspopup="listbox">
+          <li class="menu__list-item" data-value="likes" data-index="0" tabindex="0" >Popularité</li>
+          <li class="menu__list-item" data-value="date" data-index="1" tabindex="0">Date</li>
+          <li class="menu__list-item" data-value="title" data-index="2" tabindex="0">Titre</li>
         </ul>
-        <div class="menu__arrow">
-          <i class="fa-solid fa-chevron-down"></i>
+        <div class="menu__arrow" tabindex="0">
+          <strong class="fa-solid fa-chevron-down"></strong>
         </div>
       </div>
     </div>
 
     <div class="lightbox" id="lightbox" aria-label="image closeup view" tabindex="0">
-      <i class="fa-solid fa-xmark"  id="lightbox__close" onclick="closeLightbox()" alt="close dialog"></i>
+      <strong class="fa-solid fa-xmark"  id="lightbox__close" onclick="closeLightbox()" alt="close dialog" tabindex="0"></strong>
       <div class="lightbox__container">
-        <i class="fa-solid fa-chevron-left lightbox__prev" onclick="prev()" alt="Previous image"></i>
-        <div class="lightbox__container-image"></div>
-        <i class="fa-solid fa-chevron-right lightbox__next" onclick="next()" alt="next image"></i>
+        <strong class="fa-solid fa-chevron-left lightbox__prev" onclick="prev()" alt="Previous image" tabindex="0"></strong>
+        <div class="lightbox__container-image" tabindex="0"></div>
+        <strong class="fa-solid fa-chevron-right lightbox__next" onclick="next()" alt="next image" tabindex="0"></strong>
       </div> 
     </div>
 
@@ -69,45 +69,44 @@
             <h2 class="modal-title">Contactez-moi</h2>
             <p id="name-photographe" class="modal-title"></p>
           </div>
-          <img src="assets/icons/close.svg" onclick="closeModal()" aria-label="Close Contact form"/>
+          <img src="assets/icons/close.svg" onclick="closeModal()" aria-label="Close Contact form" alt="fermeture" tabindex="0"/>
         </header>
-				<form onsubmit="return validateForm()">
-          <div class="formData">
-            <label for="first">Prénom</label>
-            <input class="text-control" type="text" id="first" name="first" minlength="2" aria-label="First name"/>
+				<form onsubmit="return validateForm()" tabindex="0">
+          <div class="formData" tabindex="0">
+            <label for="first" tabindex="0">Prénom</label>
+            <input class="text-control" type="text" id="first" name="first" minlength="2" aria-label="First name" tabindex="0"/>
           </div>
 
-          <div class="formData">
-            <label for="last">Nom</label>
-            <input class="text-control" type="text" id="last" name="last" aria-label="Last name"/>
+          <div class="formData" tabindex="0">
+            <label for="last" tabindex="0">Nom</label>
+            <input class="text-control" type="text" id="last" name="last" aria-label="Last name" tabindex="0"/>
           </div>
 
-          <div class="formData">
-            <label for="email">E-mail</label>
-            <input class="text-control" type="email" id="email" name="email" aria-label="E-mail"/>
+          <div class="formData" tabindex="0">
+            <label for="email" tabindex="0">E-mail</label>
+            <input class="text-control" type="email" id="email" name="email" aria-label="E-mail" tabindex="0"/>
           </div>
 
-          <div class="formData">
-            <label for="message">Votre message</label>
-            <input class="text-control-message" type="text" id="message" name="message" aria-label="Your message"/>
+          <div class="formData" tabindex="0">
+            <label for="message" tabindex="0">Votre message</label>
+            <input class="text-control-message" type="text" id="message" name="message" aria-label="Your message" tabindex="0"/>
           </div>
-          <div class="formData " id="formDataCheckbox">
-            <input class="checkbox-input" type="checkbox" id="checkbox"/>
-            <label class="checkbox-label" for="checkbox" required>
-              <span class="checkbox-icon"></span>
+          <div class="formData" id="formDataCheckbox" tabindex="0">
+            <input class="checkbox-input" type="checkbox" id="checkbox" tabindex="0"/>
+            <label class="checkbox-label" for="checkbox" required tabindex="0">
+              <span class="checkbox-icon" tabindex="0"></span>
               J'ai lu et accepté les conditions d'utilisation.
               <p id="errorMessageCheckbox"></p>
             </label>
           </div>
 
-          <button class="contact_button" id="contact_button" disabled="disabled" aria-label="Send">Envoyer</button>
+          <button class="contact_button" id="contact_button" disabled="disabled" aria-label="Send" tabindex="0">Envoyer</button>
 				</form>
 			</div>
 		</div>
 
     <script src="./scripts/pages/photographer.js"></script>
     <script src="./scripts/utils/contactForm.js"></script>
-    <script src="./scripts/utils/filter.js"></script>
   </body>
 </html>
 

@@ -45,6 +45,21 @@ const photographerId = new URLSearchParams(window.location.search).get('id');
 init(photographerId);
 initMedias(photographerId);
 
+document.addEventListener("keyup", function(event){
+
+    if(event.code === "Tab"){
+        const element = document.querySelector('*:focus');
+        
+        if(element.dataset.value === "accueil"){
+            document.addEventListener("keydown", function(event){
+                if(event.code === "Enter"){
+                    document.location = "./";
+                }
+            })
+        }
+    }
+})
+
 // Crée les elements de la page html avec leurs contenue pour la partie presentation de chaque photographe.
 function photographerFactory(data) {
     const {portrait, name, id, city, country, tagline} = data;
@@ -111,7 +126,7 @@ function displayDataMedia(media) {
     photographersMedia.appendChild(UserCardDOMMedia);
 }
 
-//Permet de trouver les id de chaque photographe
+//Permet de trouver les id de chaque photographe                            
 function findMedias (media, id, sortBy = "likes") {
     let medias = media.filter(element => element.photographerId == id);
 
@@ -154,14 +169,38 @@ function showLightbox(){
 
     const lightbox = document.getElementById("lightbox");
     lightbox.style.display = "block";
+
+    // accessibiliter lightbox
+    document.addEventListener('keydown', function (event){
+        if(event.code === "ArrowRight"){
+            next()
+        }
+
+        if(event.code === "ArrowLeft"){
+            prev()
+        }
+
+        if(event.code === "Escape"){
+            closeLightbox()
+        
+        }
+    });
 }
 
-document.addEventListener("keydown", function(event){
-    if(event.code === "Enter"){
-        showLightbox()
+document.addEventListener("keyup", function(event){
+
+    if(event.code === "Tab"){
+        const element = document.querySelector('*:focus');
+        
+        if(element.dataset.value === "media"){
+            document.addEventListener("keydown", function(event){
+                if(event.code === "Enter"){
+                    showLightbox()
+                }
+            })
+        }
     }
 })
-
 
 //cree les element media
 function createElement(directory, fileName, elementType, alt, attributes = {}, events = {}) {
@@ -171,6 +210,7 @@ function createElement(directory, fileName, elementType, alt, attributes = {}, e
     element.setAttribute("src", path);
     element.setAttribute("alt", alt);
     element.setAttribute("tabindex", "0");
+    element.setAttribute("data-value", "media");
 
     for(const [key, value] of Object.entries(attributes)) {
         element[key] = value;
@@ -268,7 +308,6 @@ function mediaFactory(data) {
        titre.classList.add("titre-image");
        titre.setAttribute("title", title);
        titre.textContent = title;
-       titre.setAttribute("tabindex", "0");
 
        const divLike = document.createElement ('div');
        divLike.classList.add('divlike');
@@ -278,6 +317,7 @@ function mediaFactory(data) {
        nbLike.classList.add('nombres-de-likes');
        nbLike.setAttribute("nbLike", likes);
        nbLike.textContent = likes;
+       nbLike.setAttribute("aria-label", likes + "like")
 
        divLike.addEventListener("click", function(){
           let newLike = likes
@@ -288,7 +328,8 @@ function mediaFactory(data) {
        })
 
        divLike.addEventListener("keydown", function(event){
-        if(event.code === "Enter"){
+        if(event.code === "NumpadAdd"){
+            console.log(event.code)
             let newLike = likes
            newLike++;
            nbLike.textContent = newLike;
@@ -331,25 +372,6 @@ async function next() {
     addMediaLightbox();
 }
 
-// accessibiliter lightbox
-document.addEventListener('keydown', function (event){
-    if(event.code === "ArrowRight"){
-        next()
-    }
-});
-
-document.addEventListener('keydown', function (event){
-    if(event.code === "ArrowLeft"){
-        prev()
-    }
-});
-
-document.addEventListener('keydown', function (event){
-    if(event.code === "Escape"){
-        closeLightbox()
-    }
-});
-
 // Permet d'afficher l'image precedante dans la lightbox
 async function prev() {
     currentImageIndex--;
@@ -363,7 +385,7 @@ async function prev() {
     addMediaLightbox();
 }
 
-// permet de tier par "choix"
+// permet d'afficher le menu de trie
 const listItems = document.querySelectorAll(".menu__list-item");
 const menuList = document.querySelector(".menu__list");
 const arrow = document.querySelector(".menu__arrow strong");
@@ -396,20 +418,35 @@ listItems.forEach(function(listItem){
             })
         }
 
-        const sortBy = event.target.dataset.value;
-        const { media } = await getPhotographers();
-        const medias = findMedias(media, photographerId, sortBy);
-        const photographersMedia = document.querySelector(".media-section");
-        photographersMedia.innerHTML = " ";
-        for (let i=0; i < medias.length; i++){
-            displayDataMedia(medias[i]);
-    
-        }
+        sort(event.target.dataset.value, photographerId)
     })
 }); 
 
+//permet de d'appliquer le trie choisis
+async function sort (sortBy, photographerId){
+    const { media } = await getPhotographers();
+    const medias = findMedias(media, photographerId, sortBy);
+    const photographersMedia = document.querySelector(".media-section");
+    photographersMedia.innerHTML = " ";
+    for (let i=0; i < medias.length; i++){
+        displayDataMedia(medias[i]);
+
+    }
+}
+
 document.addEventListener("keydown", function(event){
-    if(event.code === "Enter"){
-    
+    if(event.code === "Numpad1"){
+        //trier par popularité
+        sort("likes", photographerId)
+    }
+
+    if(event.code === "Numpad2"){
+        //triez par date
+        sort("date", photographerId)
+    }
+
+    if(event.code === "Numpad3"){
+        //triez par titre
+        sort("title", photographerId)
     }
 })

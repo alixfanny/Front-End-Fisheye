@@ -17,14 +17,14 @@
 
     <header>
       <a href="index.html" tabindex="-1">
-        <img src="assets/logo/logo.png" class="logo" alt="Fisheye Home page" tabindex="0" aria-label="Fisheye Home page"/>
+        <img src="assets/logo/logo.png" class="logo" alt="Fisheye Home page" tabindex="0" data-value="accueil" aria-label=" logo Fisheye Home page. cliquer sur entre pour revenir sur la page acceuil"/>
       </a>
     </header>
 
     <main id="main">
       <div class="photograph__header">
         <div id="photograph-text" class="photograph-text" ></div>
-        <button class="contact_button" id="btn-signup" aria-label="Contact Me" tabindex="0" onclick="displayModal()">Contactez-moi</button>
+        <button class="contact_button" id="btn-signup" aria-label="Contactez-moi" tabindex="0" onclick="displayModal()">Contactez-moi</button>
         <div id="photograph-image" class="photograph-image"></div>
       </div>
     </main>
@@ -37,7 +37,7 @@
       <p class="price-bas-de-page"></p>
     </div>
 
-    <div class="filtre" tabindex="0" aria-label="Menu permetant de trier les media du photographe, cliquez sur entrée pour choisir votre tri">
+    <div class="filtre" tabindex="0" aria-label="Menu permetant de trier les media du photographe. cliquez sur 1 pour triez par popularité, 2 pour triez par date et 3 pour triez par titre">
       <p class="filtre-title">Trier par</p>
       <div class="menu">
         <ul class="menu__list" role="listbox" aria-haspopup="listbox">
@@ -60,7 +60,7 @@
       </div> 
     </div>
 
-    <section class="media-section" tabindex="0"></section>
+    <section class="media-section" tabindex="0" aria-label="galerie des media du photographe. pour chaque media vous avez la possibiliter de l'afficher en plus grand en cliquant sur entrée  "></section>
 
     <div id="contact__modal" aria-labelledby="Contact me" tabindex="0">
 			<div class="modal">

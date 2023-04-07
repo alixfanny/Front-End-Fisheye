@@ -6,11 +6,11 @@ function photographerFactory(data) {
     function getUserCardDOM() {
         const article = document.createElement( 'article' );
         article.classList.add('portrait');
-        article.setAttribute("tabindex", "0");
 
         const lien = document.createElement( 'a' );
         lien.setAttribute("href", `photographer.html?id=${id}`);
         lien.setAttribute("tabindex", "0");
+        lien.setAttribute("aria-label", "photo de" + name + "appuyez sur entrée pour afficher la page du photographe")
 
         const div = document.createElement('div');
         div.classList.add('contentImg');
@@ -19,7 +19,6 @@ function photographerFactory(data) {
         img.setAttribute("src", picture);
         img.setAttribute("alt", name);
         img.setAttribute("id", id);
-        img.setAttribute("tabindex", "0");
         img.classList.add("img-photographer");
 
         const h2 = document.createElement( 'h2' );

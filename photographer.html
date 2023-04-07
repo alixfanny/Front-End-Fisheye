@@ -15,37 +15,37 @@
   </head>
   <body class="app">
 
-    <div class="bas-de-page" tabindex="0">
-      <div class="containeur-like-total">
-        <p class="likes-total" tabindex="0"></p>
-        <strong class="fa-solid fa-heart"></strong>
-      </div>
-      <p class="price-bas-de-page" tabindex="0"></p>
-    </div>
-
-    <header tabindex="0">
-      <a href="index.html">
-        <img src="assets/logo/logo.png" class="logo" alt="Fisheye Home page"/>
+    <header>
+      <a href="index.html" tabindex="-1">
+        <img src="assets/logo/logo.png" class="logo" alt="Fisheye Home page" tabindex="0" aria-label="Fisheye Home page"/>
       </a>
     </header>
 
-    <main id="main" tabindex="0">
+    <main id="main">
       <div class="photograph__header">
-        <div id="photograph-text" class="photograph-text"></div>
+        <div id="photograph-text" class="photograph-text" ></div>
         <button class="contact_button" id="btn-signup" aria-label="Contact Me" tabindex="0" onclick="displayModal()">Contactez-moi</button>
         <div id="photograph-image" class="photograph-image"></div>
       </div>
     </main>
 
-    <div class="filtre" tabindex="0">
-      <p class="filtre-title" tabindex="0">Trier par</p>
+    <div class="bas-de-page" tabindex="0">
+      <div class="containeur-like-total">
+        <p class="likes-total"></p>
+        <strong class="fa-solid fa-heart"></strong>
+      </div>
+      <p class="price-bas-de-page"></p>
+    </div>
+
+    <div class="filtre" tabindex="0" aria-label="Menu permetant de trier les media du photographe, cliquez sur entrée pour choisir votre tri">
+      <p class="filtre-title">Trier par</p>
       <div class="menu">
         <ul class="menu__list" role="listbox" aria-haspopup="listbox">
-          <li class="menu__list-item" data-value="likes" data-index="0" tabindex="0" >Popularité</li>
-          <li class="menu__list-item" data-value="date" data-index="1" tabindex="0">Date</li>
-          <li class="menu__list-item" data-value="title" data-index="2" tabindex="0">Titre</li>
+          <li class="menu__list-item" data-value="likes" data-index="0"  >Popularité</li>
+          <li class="menu__list-item" data-value="date" data-index="1" >Date</li>
+          <li class="menu__list-item" data-value="title" data-index="2" >Titre</li>
         </ul>
-        <div class="menu__arrow" tabindex="0">
+        <div class="menu__arrow">
           <strong class="fa-solid fa-chevron-down"></strong>
         </div>
       </div>

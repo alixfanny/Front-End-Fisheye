@@ -29,20 +29,20 @@ $secondary-color: #D3573C;
 .media-section {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 30px 53px;;
+    gap: 30px 130px;;
     margin-top: 25px;
 
     .image{
-        width: 300px;
-        height: 250px;
+        width: 350px;
+        height: 300px;
         border-radius: 5px;
         transform: scale(1);
         cursor: pointer;
     }
     
     .video {
-        width: 300px;
-        height: 250px;
+        width: 350px;
+        height: 300px;
         border-radius: 5px;
         object-fit: cover;
         cursor: pointer;
@@ -52,6 +52,7 @@ $secondary-color: #D3573C;
         display: flex;
         align-items: baseline;
         color: $primary-color;
+        width: 350px;
     
         .titre-image{
             flex: 2;

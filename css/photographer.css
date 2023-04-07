@@ -13,19 +13,19 @@
 .media-section {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 30px 53px;
+  gap: 30px 130px;
   margin-top: 25px;
 }
 .media-section .image {
-  width: 300px;
-  height: 250px;
+  width: 350px;
+  height: 300px;
   border-radius: 5px;
   transform: scale(1);
   cursor: pointer;
 }
 .media-section .video {
-  width: 300px;
-  height: 250px;
+  width: 350px;
+  height: 300px;
   border-radius: 5px;
   -o-object-fit: cover;
      object-fit: cover;
@@ -35,6 +35,7 @@
   display: flex;
   align-items: baseline;
   color: #901c1c;
+  width: 350px;
 }
 .media-section .divInfo .titre-image {
   flex: 2;

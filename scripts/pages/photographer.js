@@ -57,7 +57,6 @@ function photographerFactory(data) {
 
         const div1 = document.createElement('div');
         div1.classList.add('contentText');
-        div1.setAttribute("tabindex", "0");
 
         const h2 = document.createElement( 'h2' );
         h2.textContent = name;
@@ -92,7 +91,6 @@ function photographerFactory(data) {
         img.setAttribute("src", picture);
         img.setAttribute("alt", name);
         img.setAttribute("id", id);
-        img.setAttribute("tabindex", "0");
         img.classList.add("img-photographer");
 
         div2.appendChild(img);
@@ -121,7 +119,7 @@ function findMedias (media, id, sortBy = "likes") {
     return medias;
 }
 
-
+// Permet de calculer et d'afficher le nombre de like total
 function showTotalLikes() {
     const likesElements = document.querySelectorAll('.nombres-de-likes');
     const afficheTotalLike = document.querySelector(".likes-total");
@@ -133,6 +131,7 @@ function showTotalLikes() {
     }
 
     afficheTotalLike.textContent = totalLikes;
+    afficheTotalLike.setAttribute("aria-label", totalLikes + "like")
 }
 
 //Récupére les medias des photographes
@@ -157,6 +156,13 @@ function showLightbox(){
     lightbox.style.display = "block";
 }
 
+document.addEventListener("keydown", function(event){
+    if(event.code === "Enter"){
+        showLightbox()
+    }
+})
+
+
 //cree les element media
 function createElement(directory, fileName, elementType, alt, attributes = {}, events = {}) {
     const path = `assets/${directory}/${fileName}`;
@@ -177,7 +183,7 @@ function createElement(directory, fileName, elementType, alt, attributes = {}, e
     return element;
 }
 
-// affiche les photos dans lightbox.
+// affiche les medias dans lightbox.
 async function addMediaLightbox() {
 
     const { media } = await getPhotographers();
@@ -197,6 +203,7 @@ async function addMediaLightbox() {
         const element = createElement('videos', data.video, 'video', data.title, { controls: true,  classList: "image-lightbox" });
         container.innerHTML = " ";
         container.appendChild(element);
+        element.focus();
     }
 }
 
@@ -213,7 +220,6 @@ function mediaFactory(data) {
 
         const div = document.createElement( 'div' );
         div.classList.add( 'media' );
-        div.setAttribute("tabindex", "0");
         const onclick = async function(){
             const { media } = await getPhotographers();
             const medias = findMedias(media, photographerId);
@@ -222,14 +228,21 @@ function mediaFactory(data) {
             addMediaLightbox()
         }
 
+        const keydown = function (event){
+            console.log(keydown)
+            if(event.code === "Enter"){
+                onclick();
+            }
+        };
+
        if (typeDeMediaImage){
         const element = createElement(
             'images', 
             data.image, 
             'img', 
             title, 
-            { classList: "image"}, 
-            { click: onclick },
+            { classList: "image" },
+            { click: onclick, keydown: keydown },
         );
         div.appendChild(element);
        }
@@ -240,8 +253,8 @@ function mediaFactory(data) {
             data.video,
             'video',
             title,
-            {classList: "video"},
-            { click: onclick },
+            {classList: "video", controls: true},
+            { click: onclick, keydown: keydown },
          );
         div.appendChild(element);
        }
@@ -265,7 +278,6 @@ function mediaFactory(data) {
        nbLike.classList.add('nombres-de-likes');
        nbLike.setAttribute("nbLike", likes);
        nbLike.textContent = likes;
-       nbLike.setAttribute("tabindex", "0");
 
        divLike.addEventListener("click", function(){
           let newLike = likes
@@ -275,8 +287,19 @@ function mediaFactory(data) {
            showTotalLikes();
        })
 
+       divLike.addEventListener("keydown", function(event){
+        if(event.code === "Enter"){
+            let newLike = likes
+           newLike++;
+           nbLike.textContent = newLike;
+           icone.style.fontSize = "20px";
+           showTotalLikes();
+        }
+       })
+
        const icone = document.createElement( 'i' );
        icone.className = "fa-solid fa-heart"
+       
 
        div.appendChild(divInfo);
        divInfo.appendChild(titre);
@@ -308,6 +331,25 @@ async function next() {
     addMediaLightbox();
 }
 
+// accessibiliter lightbox
+document.addEventListener('keydown', function (event){
+    if(event.code === "ArrowRight"){
+        next()
+    }
+});
+
+document.addEventListener('keydown', function (event){
+    if(event.code === "ArrowLeft"){
+        prev()
+    }
+});
+
+document.addEventListener('keydown', function (event){
+    if(event.code === "Escape"){
+        closeLightbox()
+    }
+});
+
 // Permet d'afficher l'image precedante dans la lightbox
 async function prev() {
     currentImageIndex--;
@@ -324,8 +366,7 @@ async function prev() {
 // permet de tier par "choix"
 const listItems = document.querySelectorAll(".menu__list-item");
 const menuList = document.querySelector(".menu__list");
-const arrow = document.querySelector(".menu__arrow i");
-
+const arrow = document.querySelector(".menu__arrow strong");
 
 listItems.forEach(function(listItem){
     listItem.addEventListener("click", async function(event){
@@ -345,7 +386,7 @@ listItems.forEach(function(listItem){
             })
         }
         else{
-            menuList.style.overflow ="hidden";
+            menuList.style.overflow = "hidden";
             arrow.style.color = "#000";
             arrow.className = "fa-solid fa-chevron-down";
             listItems.forEach(function(listItem){
@@ -365,4 +406,10 @@ listItems.forEach(function(listItem){
     
         }
     })
-});  
+}); 
+
+document.addEventListener("keydown", function(event){
+    if(event.code === "Enter"){
+    
+    }
+})

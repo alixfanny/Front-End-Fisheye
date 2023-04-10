@@ -49,11 +49,6 @@ function photographerFactory(data) {
         article.appendChild(pPrice);
         return (article);
     }
-
-    function navigateToPhotographerPage() {
-        const params = new URLSearchParams(window.location.search);
-        const photographerId = params.get('id');
-    }
     
-    return { name, picture, img:name, img:id, pLocalisation:city, pTagline:tagline, pPrice:price, getUserCardDOM, navigateToPhotographerPage }
+    return { name, picture, img:name, img:id, pLocalisation:city, pTagline:tagline, pPrice:price, getUserCardDOM}
 }

@@ -105,6 +105,7 @@ h2 {
   animation: transparent;
   animation-duration: 5s;
   animation-fill-mode: forwards;
+  pointer-events: none;
 }
 
 .loader:before,

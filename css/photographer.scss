@@ -135,7 +135,9 @@ $secondary-color: #D3573C;
         position: fixed;
         margin-top: 1%;
         margin-left: 35%;
-        height: 600px;
+        height: 90vh;
+        max-height: 600px;
+        overflow-y: auto;
     
         .modal-form {
             @include flex(space-between, baseline);
@@ -374,13 +376,20 @@ form {
             padding-right: 20px;
             transform: scale(1.5);
         }
+
+        .title-media{
+            bottom: 5px;
+            position: absolute;
+            left: 33%;
+            color: $primary-color;
+        }
         
     }
 }
 
 .image-lightbox{
-    width: 327px;
     transform: scale(2);
+    max-height: 300px;
 
     &:hover{
         box-shadow: none;

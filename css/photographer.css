@@ -117,7 +117,9 @@
   position: fixed;
   margin-top: 1%;
   margin-left: 35%;
-  height: 600px;
+  height: 90vh;
+  max-height: 600px;
+  overflow-y: auto;
 }
 #contact__modal .modal .modal-form {
   display: flex;
@@ -334,10 +336,16 @@ form .message .text-control-message {
   padding-right: 20px;
   transform: scale(1.5);
 }
+.lightbox .lightbox__container .title-media {
+  bottom: 5px;
+  position: absolute;
+  left: 33%;
+  color: #901c1c;
+}
 
 .image-lightbox {
-  width: 327px;
   transform: scale(2);
+  max-height: 300px;
 }
 .image-lightbox:hover {
   box-shadow: none;

@@ -132,7 +132,11 @@ function displayDataMedia(media) {
 function findMedias (media, id, sortBy = "likes") {
     let medias = media.filter(element => element.photographerId == id);
 
-    medias = medias.sort((a, b) => (a[sortBy] > b[sortBy] ? -1 : 1));
+    if(sortBy == "title"){
+        medias = medias.sort((a, b) => (a[sortBy] > b[sortBy] ? 1 : -1));
+    }else{
+        medias = medias.sort((a, b) => (a[sortBy] > b[sortBy] ? -1 : 1));
+    }
     return medias;
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -151,7 +155,8 @@ function showTotalLikes() {
     afficheTotalLike.textContent = totalLikes;
     afficheTotalLike.setAttribute("aria-label", totalLikes + "like")
 }
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Récupére les medias des photographes
 async function initMedias(photographerId) {
     const { media } = await getPhotographers();
@@ -189,7 +194,8 @@ function showLightbox(){
         }
     });
 }
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////S
 document.addEventListener("keyup", function(event){
 
     if(event.code === "Tab"){
@@ -204,7 +210,8 @@ document.addEventListener("keyup", function(event){
         }
     }
 })
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //cree les element media
 function createElement(directory, fileName, elementType, alt, attributes = {}, events = {}) {
     const path = `assets/${directory}/${fileName}`;
@@ -235,11 +242,13 @@ async function addMediaLightbox() {
     const typeDeMediaImage = data.image;
     const typeDeMediaVideo = data.video;
     const container = document.querySelector(".lightbox__container-image");
+    const titleMedia = document.querySelector(".title-media")
     
     if (typeDeMediaImage ){
-      const element = createElement('images', data.image, 'img', data.title, { classList: "image-lightbox"});
+      const element = createElement('images-lightbox', data.image, 'img', data.title, { classList: "image-lightbox"});
       container.innerHTML = " ";
       container.appendChild(element);
+      titleMedia.innerHTML = data.title;
     }
 
     if(typeDeMediaVideo){
@@ -247,11 +256,12 @@ async function addMediaLightbox() {
         container.innerHTML = " ";
         container.appendChild(element);
         element.focus();
+        titleMedia.innerHTML = data.title;
     }
 }
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Crée les elements de la page html avec leurs contenue pour leurs miniature de photo.
-
 function mediaFactory(data) {
     const { image, title, id, likes, date, video } = data;
     const typeDeMediaImage = data.image;
@@ -311,7 +321,8 @@ function mediaFactory(data) {
        titre.classList.add("titre-image");
        titre.setAttribute("title", title);
        titre.textContent = title;
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
        const divLike = document.createElement ('div');
        divLike.classList.add('divlike');
        divLike.setAttribute("tabindex", "0");
@@ -321,15 +332,23 @@ function mediaFactory(data) {
        nbLike.setAttribute("nbLike", likes);
        nbLike.textContent = likes;
        nbLike.setAttribute("aria-label", likes + "like")
-
-       divLike.addEventListener("click", function(){
-          let newLike = likes
-           newLike++;
+       
+       divLike.addEventListener("click", function(event){console.log(event.target.classList)
+        if(divLike.classList.contains("liked")) {
+            nbLike.textContent = likes;
+            divLike.classList.remove('liked');
+            icone.style.fontSize = " ";
+            showTotalLikes();
+        }else {
+          let newLike = likes + 1;
            nbLike.textContent = newLike;
            icone.style.fontSize = "20px";
+           divLike.classList.add('liked');
            showTotalLikes();
+        }
        })
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
        divLike.addEventListener("keydown", function(event){
         if(event.code === "NumpadAdd"){
             console.log(event.code)
@@ -339,6 +358,15 @@ function mediaFactory(data) {
            icone.style.fontSize = "20px";
            showTotalLikes();
         }
+        if(event.code === "Delete"){
+            let newLike = likes
+            newLike --;
+            nbLike.textContent = newLike;
+            divLike.classList.remove('liked');
+            icone.style.fontSize = " ";
+            showTotalLikes();
+        }
+
        })
 
        const icone = document.createElement( 'i' );
@@ -362,7 +390,8 @@ function closeLightbox() {
     const lightbox = document.getElementById("lightbox");
     lightbox.style.display = "none";
 }
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Permet d'afficher l'image suivante dans la lightbox
 async function next() {
     currentImageIndex++;
